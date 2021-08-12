@@ -46,7 +46,8 @@ router.get("/user", async (req, res) => {
 });
 
   //Delete a user
-router.delete("/:user", async (req, res) => {
+
+  router.delete("/:user", async (req, res) => {
     //Verify user ID
     if (req.body.userId === req.params.id || req.body.isAdmin) {
       try {
@@ -59,6 +60,5 @@ router.delete("/:user", async (req, res) => {
       return res.status(403).json("You can only delete your own Account");
     }
   });
-
 module.exports = router;
 
