@@ -1,11 +1,10 @@
 const mongoose = require("mongoose");
 const Joi = require("joi");
-// const bcrypt = require("bcrypt");
+const bcrypt = require("bcrypt");
 const config = require("config");
-// const jwt = require("jsonwebtoken");
-// const { Friends } = require("../models/friends");
+const jwt = require("jsonwebtoken");
 
-//hello golden
+
 
 const userSchema = mongoose.Schema({
   firstName: { type: String, required: true, minlength: 5, maxlength: 100 },
@@ -19,7 +18,6 @@ const userSchema = mongoose.Schema({
     maxlength: 50,
   },
   password: { type: String, required: true, minlength: 5, maxlength: 1000 },
-  friends: { type: Array, default: [] },
 });
 
 userSchema.methods.generateAuthToken = function () {
