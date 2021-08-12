@@ -35,6 +35,16 @@ router.post("/user", /*auth,*/ async (req, res) => {
     }
   });
 
+  //get all the users data
+router.get("/user", async (req, res) => {
+  try {
+    const user = await User.find();
+    return res.send(user);
+  } catch (ex) {
+    return res.status(500).send(`Internal Server Error: ${ex}`);
+  }
+});
+
   //Delete a user
 router.delete("/:user", async (req, res) => {
     //Verify user ID
