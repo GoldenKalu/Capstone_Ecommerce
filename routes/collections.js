@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const auth = require("../middleware/auth");
 const config = require("config");
 const { User, validateUser } = require("../models/user");
@@ -65,5 +66,6 @@ router.get("/user", async (req, res) => {
       return res.status(403).json("You can only delete your own Account");
     }
   });
+  
 module.exports = router;
 
