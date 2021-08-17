@@ -12,17 +12,17 @@ router.get('/', async (req, res) => {
     }
 });
 
-// router.get('/:id', async (req, res) => {
-//     try {
-//         const product = await Product.findById(req.params.id);
-//         if (!product)
-//             return res.status(400).send(`The product with id "${req.params.id}" does not exist.`);
+router.get('/:id', async (req, res) => {
+    try {
+        const product = await Product.findById(req.params.id);
+        if (!product)
+            return res.status(400).send(`The product with id "${req.params.id}" does not exist.`);
 
-//         return res.send(product);
-//     }   catch (ex) {
-//         return res.status(500).send(`Internal Server Error: ${ex}`);
-//     }
-// });
+        return res.send(product);
+    }   catch (ex) {
+        return res.status(500).send(`Internal Server Error: ${ex}`);
+    }
+});
 
 
 
