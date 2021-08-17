@@ -2,7 +2,7 @@ const Joi = require('joi');
 const mongoose = require('mongoose');
 const joi = require('joi');
 
-const productsSchema = new mongoose.Schema({
+const productSchema = new mongoose.Schema({
     name: { type: String, required: true, minlength: 5, maxlength: 200 },
     description: { type: String, required: true },
     category: { type: String, required: true, minlength: 5, maxlength: 50 },
@@ -10,16 +10,16 @@ const productsSchema = new mongoose.Schema({
     dateModified: { type: Date, default: Date.now },
 });
 
-const Products = mongoose.model('Products', productsSchema);
+const Product = mongoose.model('Product', productSchema);
 
-function validateProducts(products) {
+function validateProduct(product) {
     const schema = joi.object({
         name: Joi.string().min(2).max(50).required(),
         description: Joi.string().required(),
         category: Joi.string().min(5).max(50).required(),
         price: Joi.number().required(),
     });
-    return schema.validate(products);
+    return schema.validate(product);
 }
 
 
@@ -28,6 +28,6 @@ function validateProducts(products) {
 
 
 
-exports.Products = Products;
-exports.validate = validateProducts;
-exports.productsSchema = productsSchema;
+exports.Product = Product;
+exports.validate = validateProduct;
+exports.produtSchema = productSchema;
