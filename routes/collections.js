@@ -7,7 +7,7 @@ const config = require("config");
 const { User, validateUser } = require("../models/user");
 
 // Register user
-router.post("/user", auth, async (req, res) => {
+router.post("/user", /*auth,*/ async (req, res) => {
     try {
       const { error } = validateUser(req.body);
       if (error) return res.status(400).send(error);

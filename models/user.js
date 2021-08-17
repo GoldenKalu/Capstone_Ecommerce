@@ -4,6 +4,8 @@ const bcrypt = require("bcrypt");
 const config = require("config");
 const jwt = require("jsonwebtoken");
 const auth = require("../middleware/auth");
+const { productSchema } = require("./product");
+
 // const express = require("express");
 
 
@@ -12,14 +14,11 @@ const userSchema = mongoose.Schema({
   firstName: { type: String, required: true, minlength: 5, maxlength: 100 },
   lastName: { type: String, required: true, minlength: 5, maxlength: 100 },
   username: { type: String, required: true, minlength: 5, maxlength: 50 },
-  email: {
-    type: String,
-    unique: true,
-    required: true,
-    minlength: 5,
-    maxlength: 50,
-  },
+  email: { type: String, unique: true, required: true, minlength: 5, maxlength: 50 },
   password: { type: String, required: true, minlength: 5, maxlength: 1000 },
+  isGoldMember: { type: Boolean, default: false },
+  shoppingCart: { type: [productSchema], default: [] },
+
 });
 
 userSchema.methods.generateAuthToken = function () {
