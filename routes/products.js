@@ -25,9 +25,6 @@ router.get('/:id', async (req, res) => {
 });
 
 
-
-
-
 router.post('/', async (req, res) => {
     try {
         const { error } = validate(req.body);
@@ -48,6 +45,33 @@ router.post('/', async (req, res) => {
       return res.status(500).send(`Internal Server Error: ${ex}`);
     }
 });
+
+router.put('/:id', async (req, res) => {
+    try {
+    const { error } = validate(req.body);
+    if (error) return res.status(400).send(error);
+
+    const product = await Product.findByIdAndUpdate(
+        req.params.id,
+        {
+            name: req.body.name,
+            description: req.body.description,
+            category: req.body.category,
+            price: req.body.price,
+        },
+        { new: true }
+    );
+
+    if (!product)
+        return res.status(400).send(`The product with id "${req.params.id}" does not exist.`);
+
+    await product.save();
+
+    return res.send(product);
+  } catch (ex) {
+    return res.status(500).send(`Internal Server Error: ${ex}`);
+    }
+   });
 
 
 
