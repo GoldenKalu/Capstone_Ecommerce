@@ -2,8 +2,8 @@ const { Product, validate } = require("../models/product");
 const express = require("express");
 const router = express.Router();
 
-
-router.get('/', async (req, res) => {
+// get all products
+router.get('/products', async (req, res) => {
     try {
         const products = await Product.find();
         return res.send(products);
@@ -12,7 +12,9 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/:id', async (req, res) => {
+// get individual products
+
+router.get('/products/:productId', async (req, res) => {
     try {
         const product = await Product.findById(req.params.id);
         if (!product)
@@ -25,7 +27,8 @@ router.get('/:id', async (req, res) => {
 });
 
 
-router.post('/', async (req, res) => {
+// post new products
+router.post('/product', async (req, res) => {
     try {
         const { error } = validate(req.body);
         if (error)
@@ -73,7 +76,9 @@ router.put('/:id', async (req, res) => {
     }
    });
 
-router.delete('/:id', async (req, res) => {
+
+// delete product from shoppingCart
+router.delete('/shoppingcart/:userID/:productId', async (req, res) => {
     try {
    
         const product = await Product.findByIdAndRemove(req.params.id);

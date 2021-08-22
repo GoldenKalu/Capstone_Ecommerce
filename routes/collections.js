@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const auth = require("../middleware/auth");
 const config = require("config");
 const { User, validateUser } = require("../models/user");
+const { Products, validateProducts } = require("../models/product");
 
 // Register user
 router.post("/user", /*auth,*/ async (req, res) => {
@@ -45,6 +46,15 @@ router.post("/user", /*auth,*/ async (req, res) => {
 router.get("/user", async (req, res) => {
   try {
     const user = await User.find();
+    return res.send(user);
+  } catch (ex) {
+    return res.status(500).send(`Internal Server Error: ${ex}`);
+  }
+});
+
+router.get("/user/:userId", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId);
     return res.send(user);
   } catch (ex) {
     return res.status(500).send(`Internal Server Error: ${ex}`);
