@@ -52,6 +52,8 @@ router.get("/user", async (req, res) => {
   }
 });
 
+// get specific user
+
 router.get("/user/:userId", async (req, res) => {
   try {
     const user = await User.findById(req.params.userId);
