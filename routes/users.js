@@ -3,8 +3,8 @@ const { Product, validate } = require("../models/product");
 const express = require("express");
 const router = express.Router();
 
-
-router.post('/:userId/shoppingcart/:productId', async (req, res) => {
+// add new product to shoppingcart
+router.post('/shoppingcart/:userId/:productId', async (req, res) => {
     try {
         const user = await User.findById(req.params.userId);
         if (!user) return res.status(400).send(`The user with id "${req.params.userId}" does not exist.`);
@@ -44,7 +44,8 @@ router.put('/:userId/shoppingcart/:productId', async (req, res) => {
     }
 });
 
-router.delete('/:userId/shoppingcart/:productId', async (req, res) => {
+// delete product from shoppingCart
+router.delete('/shoppingcart/:userId/:productId', async (req, res) => {
     try {
    
         const user = await User.findById(req.params.userId);

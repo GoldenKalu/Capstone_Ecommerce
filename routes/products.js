@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 // get all products
-router.get('/products', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const products = await Product.find();
         return res.send(products);
@@ -78,7 +78,7 @@ router.put('/:id', async (req, res) => {
 
 
 // delete product from shoppingCart
-router.delete('/shoppingcart/:userID/:productId', async (req, res) => {
+router.delete('/shoppingCart/:userID/:productId', async (req, res) => {
     try {
    
         const product = await Product.findByIdAndRemove(req.params.id);
