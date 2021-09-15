@@ -10,7 +10,7 @@ const { productSchema } = require("./product");
 
 
 
-const userSchema = mongoose.Schema({
+const userSchema = new mongoose.Schema({
   firstName: { type: String, required: true, minlength: 5, maxlength: 100 },
   lastName: { type: String, required: true, minlength: 5, maxlength: 100 },
   username: { type: String, required: true, minlength: 5, maxlength: 50 },
@@ -18,14 +18,17 @@ const userSchema = mongoose.Schema({
   password: { type: String, required: true, minlength: 5, maxlength: 1000 },
   isGoldMember: { type: Boolean, default: false },
   shoppingCart: { type: [productSchema], default: [] },
+  profileImage: {type: String, required: true,default: 'no Photo' },
+  isAdmin: { type: Boolean, default: false},
+
 
 });
 
 userSchema.methods.generateAuthToken = function () {
-  return jwt.sign({ _id: this._id, name: this.name }, config.get("jwtSecret"));
+  return jwt.sign({_id: this._id, username: this.username, isAdmin: this.isAdmin}, config.get("jwtSecret"));
 };
 
-const User = mongoose.model("user", userSchema);
+const User = mongoose.model("User", userSchema);
 
 function validateUser(user) {
   const Schema = Joi.object({
@@ -38,7 +41,12 @@ function validateUser(user) {
   return Schema.validate(user);
 }
 
-module.exports = {
-  User: User,
-  validateUser: validateUser,
-};
+exports.validateUser = validateUser;
+exports.User = User;
+exports.userSchema = userSchema;
+
+// module.exports = {
+//   User: User,
+//   validateUser: validateUser,
+  
+// };
